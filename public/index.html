@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Поддержка | Discord Ticket System</title>
+<!-- Иконка сайта (SVG прямо в коде) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238875ff'/><path d='M50 20 L80 35 L80 65 L50 80 L20 65 L20 35 Z' fill='white'/></svg>">
+<!-- Шрифты -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0d12;--panel:#121620;--panel2:#171c28;--line:#262d3b;--text:#eef1f8;--muted:#929caf;--accent:#8875ff;--green:#47d6a0;--red:#ff6f7f;--yellow:#ffc66d}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 15% 0%,#1c1a39 0,transparent 38%),var(--bg);color:var(--text);font:14px/1.45 'Inter',sans-serif;animation:fadeIn 0.5s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--accent);color:white;font-weight:650;transition:all 0.2s ease}
+button:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 12px rgba(136,117,255,0.3)}
+button.secondary{background:#222938;border:1px solid var(--line);color:var(--text)}
+button.secondary:hover{background:#2a3345;box-shadow:none;transform:none}
+button.danger{background:#532632;color:#ffd9df}
+input,textarea,select{width:100%;border:1px solid var(--line);background:#0d1119;color:var(--text);border-radius:10px;padding:11px 12px;outline:none;transition:border-color 0.2s}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(136,117,255,0.15)}
+textarea{resize:vertical;min-height:90px}
+.muted{color:var(--muted)}.small{font-size:12px}.hidden{display:none!important}
+.app{min-height:100vh;display:grid;grid-template-columns:245px 1fr}
+.side{border-right:1px solid var(--line);background:#0e1119d9;padding:22px 14px;display:flex;flex-direction:column;gap:24px}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 9px}
+.logo{width:37px;height:37px;display:grid;place-items:center;background:linear-gradient(140deg,#a394ff,#6250df);border-radius:12px;font-size:20px;box-shadow:0 4px 15px rgba(136,117,255,0.4)}
+.brand strong{font-family:'Outfit',sans-serif;font-size:16px;letter-spacing:-0.5px}
+.brand small{display:block;color:var(--muted);font-size:11px}
+.navlabel{font-size:10px;letter-spacing:1.6px;color:#687286;padding:0 12px;margin-bottom:6px}
+.nav{display:grid;gap:5px}
+.nav button{background:transparent;color:#aab2c2;text-align:left;display:flex;gap:12px;align-items:center;font-weight:550;padding:10px 12px;transition:all 0.2s}
+.nav button.active,.nav button:hover{background:#24213d;color:#fff;transform:translateX(4px);box-shadow:none}
+.nav .ico{width:20px;text-align:center}
+.sidebottom{margin-top:auto;border-top:1px solid var(--line);padding:16px 8px 0}
+.status{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.main{min-width:0}
+.top{height:75px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(14,17,25,0.5);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}
+.top h2{margin:0;font-family:'Outfit',sans-serif;font-size:18px}
+.userchip{display:flex;gap:10px;align-items:center}
+.avatar{width:35px;height:35px;border-radius:12px;background:#29254b;display:grid;place-items:center;color:#c8c0ff;font-weight:800}
+.content{padding:30px;max-width:1400px;margin:auto}
+.eyebrow{font-size:11px;letter-spacing:1.7px;color:#a89cff;text-transform:uppercase;font-weight:600}
+.headline{font-family:'Outfit',sans-serif;font-size:29px;letter-spacing:-0.8px;margin:6px 0}
+.sub{color:var(--muted);margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{background:linear-gradient(145deg,#151a26,#11151e);border:1px solid var(--line);border-radius:16px;padding:20px;min-width:0;transition:transform 0.2s, box-shadow 0.2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.metric{font-family:'Outfit',sans-serif;font-size:30px;font-weight:750;margin:12px 0 2px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.stack{display:grid;gap:14px}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.toolbar input{max-width:300px}
+.ticketrow{display:grid;grid-template-columns:1fr auto;gap:14px;padding:17px 0;border-bottom:1px solid var(--line);align-items:center}
+.ticketrow:last-child{border-bottom:0}
+.tickettitle{font-weight:700;font-size:14px}
+.pill{display:inline-flex;align-items:center;border-radius:99px;padding:4px 9px;font-size:11px;background:#292d3b;color:#c3c9d8;font-weight:600}
+.pill.open{background:#173a30;color:#7ae8bd}
+.pill.in_progress{background:#40331f;color:#ffd48a}
+.pill.closed{background:#2a2d36;color:#aeb6c6}
+.ticketmeta{color:var(--muted);font-size:12px;margin-top:5px}
+.empty{padding:44px 15px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--text);font-size:16px;margin-bottom:5px;font-family:'Outfit',sans-serif}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:#b4bdce;font-weight:650}
+.modalback{position:fixed;inset:0;background:#03050bd9;display:grid;place-items:center;padding:20px;z-index:10;backdrop-filter:blur(8px);animation:fadeIn 0.2s ease-out}
+.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#151a26;border:1px solid #343b4b;border-radius:18px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,0.6);animation:slideUp 0.3s ease-out}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal h2{margin:0 0 7px;font-family:'Outfit',sans-serif}
+.modalhead{display:flex;justify-content:space-between;gap:15px;margin-bottom:20px}
+.close{background:transparent;color:var(--muted);font-size:20px;padding:0 6px;transition:color 0.2s}
+.close:hover{color:white;background:transparent}
+.chat{display:flex;flex-direction:column;gap:14px;min-height:280px;max-height:48vh;overflow:auto;padding:15px;background:#0c1018;border:1px solid var(--line);border-radius:12px}
+.msg{max-width:88%;align-self:flex-start;background:#1b2230;border:1px solid #293143;border-radius:12px;padding:11px 13px}
+.msg.mine{align-self:flex-end;background:#2b2750;border-color:#484078}
+.msghead{display:flex;gap:9px;font-size:11px;color:#c5cbd8;margin-bottom:5px}
+.msg p{white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.msg time{color:#7f8ba0}
+.compose{display:flex;gap:10px;margin-top:12px;align-items:end}
+.compose textarea{min-height:50px;max-height:150px}
+.authwrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+.authcard{width:min(430px,100%);background:#131824;border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 30px 100px rgba(0,0,0,0.5);animation:slideUp 0.4s ease-out}
+.authcard h1{font-family:'Outfit',sans-serif;font-size:26px;margin:20px 0 5px}
+.authcard .field{margin-top:14px}
+.authcard .primary{width:100%;margin-top:20px}
+.switch{margin-top:16px;text-align:center;color:var(--muted)}
+.switch a{color:#b5aaff;cursor:pointer;font-weight:600}
+.switch a:hover{text-decoration:underline}
+.notice{padding:12px 14px;border:1px solid #574d86;background:#25213e;border-radius:10px;color:#d9d2ff;margin-bottom:15px;font-size:13px}
+.toast{position:fixed;right:22px;bottom:22px;background:#202737;border:1px solid #39445a;border-radius:12px;padding:13px 17px;z-index:20;box-shadow:0 12px 50px rgba(0,0,0,0.5);max-width:360px;animation:slideInRight 0.3s ease-out}
+@keyframes slideInRight{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:12px}
+.table th{color:var(--muted);font-weight:600}
+.table select{min-width:100px;padding:7px}
+.cat{display:flex;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:#151a26}
+.cat .emoji{width:40px;height:40px;border-radius:12px;background:#25223d;display:grid;place-items:center;font-size:19px}
+.mobilemenu{display:none}
+@media(max-width:850px){.app{grid-template-columns:1fr}.side{display:none}.top{padding:0 18px}.content{padding:20px}.grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.mobilemenu{display:inline-block}.top h2{font-size:15px}.headline{font-size:25px}}
+@media(min-width:851px){.app .side{position:sticky;top:0;height:100vh}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div id="modalroot"></div>
+<div id="toastroot"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const $=s=>document.querySelector(s);let me=null,view='overview',tickets=[],categories=[],activeTicket=null,adminUsers=[],logs=[],socket=null,loginMode='login';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const date=s=>new Date(s).toLocaleString('ru-RU');const roleName=r=>({admin:'Администратор',staff:'Персонал',user:'Пользователь'}[r]||r);const statusName=s=>({open:'Открыт',in_progress:'В работе',closed:'Закрыт'}[s]||s);
+async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{'Content-Type':'application/json',...(opts.headers||{})},body:opts.body?JSON.stringify(opts.body):undefined});if(!r.ok){let e={};try{e=await r.json()}catch{}throw Error(e.error||`Ошибка запроса (${r.status})`)}const ct=r.headers.get('content-type')||'';return ct.includes('application/json')?r.json():r.text()}
+function toast(msg){$('#toastroot').innerHTML=`<div class="toast">${esc(msg)}</div>`;setTimeout(()=>$('#toastroot').innerHTML='',3500)}function modal(html){$('#modalroot').innerHTML=`<div class="modalback" onclick="if(event.target===this)closeModal()"><section class="modal">${html}</section></div>`}function closeModal(){$('#modalroot').innerHTML=''}
+async function boot(){try{const x=await api('/api/me');me=x.user;if(!me){renderAuth();return}await loadData();render();connectSocket()}catch(e){renderAuth(e.message)}}
+function renderAuth(error=''){ $('#root').innerHTML=`<div class="authwrap"><div class="authcard"><div class="brand" style="padding:0"><div class="logo">✦</div><div><strong>Поддержка</strong><small>Портал тикетов Discord</small></div></div><h1>${loginMode==='login'?'С возвращением':'Создать аккаунт'}</h1><p class="muted">${loginMode==='login'?'Войдите, чтобы просматривать и управлять тикетами.':'Создайте аккаунт, чтобы связаться с поддержкой.'}</p>${error?`<div class="notice">${esc(error)}</div>`:''}<form id="authform"><div class="field"><label>Имя пользователя</label><input name="username" minlength="3" maxlength="32" autocomplete="username" required></div><div class="field"><label>Пароль</label><input name="password" type="password" minlength="10" autocomplete="${loginMode==='login'?'current-password':'new-password'}" required></div><button class="primary" type="submit">${loginMode==='login'?'Войти':'Создать аккаунт'} →</button></form><div class="switch">${loginMode==='login'?`Впервые здесь? <a onclick="loginMode='register';renderAuth()">Создать аккаунт</a>`:`Уже есть аккаунт? <a onclick="loginMode='login';renderAuth()">Войти</a>`}</div><p class="small muted" style="margin-top:22px">Первый зарегистрированный аккаунт становится администратором.</p></div></div>`;$('#authform').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);try{const x=await api('/api/'+loginMode,{method:'POST',body:{username:f.get('username'),password:f.get('password')}});me=x.user;await loadData();render();connectSocket()}catch(err){renderAuth(err.message)}}}
+async function loadData(){const [t,c]=await Promise.all([api('/api/tickets'),api('/api/categories')]);tickets=t.tickets;categories=c.categories}
+function connectSocket(){if(socket)socket.disconnect();socket=io();socket.on('ticket:update',async()=>{try{await loadData();if(activeTicket){const x=await api('/api/tickets/'+activeTicket);activeTicket=x.ticket;render();openTicket(activeTicket.id,true)}else render()}catch{}});socket.on('connect_error',()=>{});}
+function shell(content){$('#root').innerHTML=`<div class="app"><aside class="side"><div class="brand"><div class="logo">✦</div><div><strong>Поддержка</strong><small>Управление тикетами</small></div></div><div><div class="navlabel">РАБОЧЕЕ ПРОСТРАНСТВО</div><div class="nav"><button class="${view==='overview'?'active':''}" onclick="go('overview')"><span class="ico">▦</span> Обзор</button><button class="${view==='tickets'?'active':''}" onclick="go('tickets')"><span class="ico">▤</span> ${['staff','admin'].includes(me.role)?'Все тикеты':'Мои тикеты'} <span class="pill" style="margin-left:auto">${tickets.filter(t=>t.status!=='closed').length}</span></button><button class="${view==='new'?'active':''}" onclick="newTicket()"><span class="ico">＋</span> Создать тикет</button></div></div>${['staff','admin'].includes(me.role)?`<div><div class="navlabel">УПРАВЛЕНИЕ</div><div class="nav"><button class="${view==='categories'?'active':''}" onclick="go('categories')"><span class="ico">◇</span> Категории</button><button class="${view==='users'?'active':''}" onclick="go('users')"><span class="ico">♙</span> Команда и роли</button><button class="${view==='logs'?'active':''}" onclick="go('logs')"><span class="ico">≋</span> Журнал аудита</button></div></div>`:''}<div class="sidebottom"><div class="status"><span class="dot"></span><span id="discordstatus">Проверка связи с Discord…</span></div><div class="row" style="margin-top:16px;justify-content:flex-start"><div class="avatar">${esc(me.username.slice(0,1).toUpperCase())}</div><div style="min-width:0;flex:1"><b>${esc(me.username)}</b><div class="small muted">${roleName(me.role)}</div></div><button class="secondary" style="padding:7px" title="Выйти" onclick="logout()">↪</button></div></div></aside><main class="main"><header class="top"><div class="row" style="justify-content:flex-start"><button class="secondary mobilemenu" onclick="toast('Используйте десктопную версию для полной навигации')">☰</button><h2>${({'overview':'Обзор','tickets':'Тикеты','categories':'Категории','users':'Команда и роли','logs':'Журнал аудита','new':'Создать тикет'}[view]||'Поддержка')}</h2></div><div class="userchip"><span class="pill">${roleName(me.role)}</span><div class="avatar">${esc(me.username.slice(0,1).toUpperCase())}</div></div></header><div class="content">${content}</div></main></div>`;api('/api/me').then(x=>{const el=$('#discordstatus');if(el)el.textContent=x.discordReady?'Discord подключен':x.discordConfigured?'Discord не подключен':'Мост Discord не настроен'}).catch(()=>{})}
+function go(v){view=v;activeTicket=null;if(v==='categories')loadCategories();if(v==='users')loadUsers();if(v==='logs')loadLogs();render()}
+function render(){if(!me){renderAuth();return}if(view==='overview')return overview();if(view==='tickets')return ticketList();if(view==='categories')return categoryPage();if(view==='users')return userPage();if(view==='logs')return logPage();overview()}
+function overview(){const open=tickets.filter(t=>t.status==='open').length,progress=tickets.filter(t=>t.status==='in_progress').length,closed=tickets.filter(t=>t.status==='closed').length; shell(`<div class="eyebrow">ВАШЕ ПРОСТРАНСТВО</div><h1 class="headline">${['staff','admin'].includes(me.role)?'Обзор поддержки':`Привет, ${esc(me.username)}`}</h1><p class="sub">${['staff','admin'].includes(me.role)?'Следите за запросами и помогайте команде.':'Отслеживайте свои запросы и получайте помощь.'}</p><div class="grid"><div class="card"><div class="row"><span class="muted">Открытые тикеты</span><span>◷</span></div><div class="metric">${open}</div><span class="small muted">Ожидают ответа</span></div><div class="card"><div class="row"><span class="muted">В работе</span><span>↗</span></div><div class="metric">${progress}</div><span class="small muted">Обрабатываются</span></div><div class="card"><div class="row"><span class="muted">Закрытые тикеты</span><span>✓</span></div><div class="metric">${closed}</div><span class="small muted">Решенные запросы</span></div></div><div class="row" style="margin:30px 0 14px"><div><h2 style="margin:0">${['staff','admin'].includes(me.role)?'Последние тикеты':'Ваши последние тикеты'}</h2><div class="small muted">Последние обращения</div></div><button onclick="newTicket()">＋ Новый тикет</button></div><div class="card">${ticketRows(tickets.slice(0,6))}</div>`)}
+function ticketRows(items){if(!items.length)return `<div class="empty"><b>Пока нет тикетов</b>Создайте тикет, если нужна помощь.</div>`;return items.map(t=>`<div class="ticketrow"><div style="min-width:0"><div class="tickettitle"><a style="color:inherit;cursor:pointer" onclick="openTicket('${t.id}')">#${t.number} · ${esc(t.subject)}</a></div><div class="ticketmeta">${esc(t.categoryName)} · ${esc(t.ownerName)} · ${date(t.updatedAt)}</div></div><div class="row"><span class="pill ${t.status}">${statusName(t.status)}</span><button class="secondary" onclick="openTicket('${t.id}')">Открыть</button></div></div>`).join('')}
+function ticketList(){shell(`<div class="eyebrow">ОЧЕРЕДЬ ПОДДЕРЖКИ</div><h1 class="headline">Тикеты</h1><p class="sub">${['staff','admin'].includes(me.role)?'Все запросы в вашем пространстве.':'Все ваши запросы.'}</p><div class="toolbar"><input id="searchtickets" placeholder="Поиск тикетов…" oninput="filterTickets()"><select id="statusfilter" style="width:170px" onchange="filterTickets()"><option value="all">Все статусы</option><option value="open">Открыт</option><option value="in_progress">В работе</option><option value="closed">Закрыт</option></select><button style="margin-left:auto" onclick="newTicket()">＋ Создать тикет</button></div><div class="card" id="ticketlist">${ticketRows(tickets)}</div>`)}function filterTickets(){const q=$('#searchtickets').value.toLowerCase(),s=$('#statusfilter').value;const arr=tickets.filter(t=>(s==='all'||t.status===s)&&`${t.subject} ${t.ownerName} ${t.categoryName} ${t.number}`.toLowerCase().includes(q));$('#ticketlist').innerHTML=ticketRows(arr)}
+function newTicket(){modal(`<div class="modalhead"><div><div class="eyebrow">НОВЫЙ ЗАПРОС</div><h2>Создать тикет</h2><div class="muted small">Расскажите, с чем нужна помощь.</div></div><button class="close" onclick="closeModal()">✕</button></div><form id="newticketform" class="formgrid"><div class="field full"><label>Категория</label><select name="categoryId" required>${categories.filter(c=>c.enabled!==false).map(c=>`<option value="${esc(c.id)}">${esc(c.emoji||'🎫')} ${esc(c.name)} — ${esc(c.description||'')}</option>`).join('')}</select></div><div class="field full"><label>Тема</label><input name="subject" maxlength="120" minlength="3" placeholder="Кратко опишите проблему" required></div><div class="field full"><label>Сообщение</label><textarea name="content" maxlength="5000" placeholder="Опишите детали, которые помогут нам…" required></textarea></div><div class="field full"><div class="row"><span class="small muted">Если Discord настроен, будет создан приватный канал.</span><button type="submit">Создать тикет →</button></div></div></form>`);$('#newticketform').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);try{const x=await api('/api/tickets',{method:'POST',body:Object.fromEntries(f)});closeModal();toast(x.discordSynced?'Тикет создан и синхронизирован с Discord':'Тикет создан; Discord не подключен');await loadData();view='tickets';render();openTicket(x.ticket.id)}catch(err){toast(err.message)}}}
+async function openTicket(id,refreshOnly=false){try{const x=await api('/api/tickets/'+id);activeTicket=x.ticket;const t=activeTicket;modal(`<div class="modalhead"><div><div class="eyebrow">ТИКЕТ #${t.number}</div><h2>${esc(t.subject)}</h2><div class="ticketmeta">${esc(t.categoryName)} · создан ${esc(t.ownerName)} · ${date(t.createdAt)}</div></div><button class="close" onclick="closeModal();activeTicket=null">✕</button></div><div class="row" style="margin-bottom:12px"><span class="pill ${t.status}">${statusName(t.status)}</span><div class="row"><a class="small" style="color:#b7adff;cursor:pointer" onclick="downloadTranscript('${t.id}')">↓ Скачать историю</a>${['staff','admin'].includes(me.role)?`<select style="width:145px" onchange="changeStatus('${t.id}',this.value)"><option value="open" ${t.status==='open'?'selected':''}>Открыт</option><option value="in_progress" ${t.status==='in_progress'?'selected':''}>В работе</option><option value="closed" ${t.status==='closed'?'selected':''}>Закрыт</option></select>`:''}</div></div><div class="chat" id="chatbox">${t.messages.map(m=>`<div class="msg ${(m.authorId===me.id)?'mine':''}"><div class="msghead"><b>${esc(m.authorName)}</b><span class="muted">${esc(m.source==='discord'?'Discord':'Сайт')}</span><time>${date(m.createdAt)}</time></div><p>${esc(m.content)}</p></div>`).join('')}</div>${t.status==='closed'?`<div class="notice" style="margin:12px 0 0">Тикет закрыт. Он остается доступным для истории и экспорта.</div>`:`<form id="replyform" class="compose"><textarea name="content" maxlength="5000" placeholder="Написать ответ…" required></textarea><button type="submit">Отправить ↗</button></form>`}`);const chat=$('#chatbox');if(chat)chat.scrollTop=chat.scrollHeight;const form=$('#replyform');if(form)form.onsubmit=async e=>{e.preventDefault();const content=new FormData(form).get('content');try{await api(`/api/tickets/${id}/messages`,{method:'POST',body:{content}});await loadData();openTicket(id,true)}catch(err){toast(err.message)}}}catch(e){toast(e.message)}}
+async function changeStatus(id,status){try{await api('/api/tickets/'+id,{method:'PATCH',body:{status}});await loadData();toast('Тикет обновлен');openTicket(id,true)}catch(e){toast(e.message)}}async function downloadTranscript(id){try{const r=await fetch('/api/tickets/'+id+'/transcript');if(!r.ok)throw Error('Не удалось экспортировать');const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ticket-transcript.txt`;a.click();URL.revokeObjectURL(url)}catch(e){toast(e.message)}}
+async function loadCategories(){try{categories=(await api('/api/admin/categories')).categories}catch(e){toast(e.message)}}function categoryPage(){shell(`<div class="eyebrow">НАСТРОЙКИ</div><h1 class="headline">Категории тикетов</h1><p class="sub">Организуйте входящие запросы. Новые категории доступны сразу.</p>${me.role==='admin'?`<button onclick="addCategory()" style="margin-bottom:16px">＋ Добавить категорию</button>`:''}<div class="stack">${categories.map(c=>`<div class="cat"><div class="emoji">${esc(c.emoji||'🎫')}</div><div style="flex:1"><b>${esc(c.name)}</b><div class="small muted">${esc(c.description||'Нет описания')}</div></div><span class="pill">${c.enabled?'Включена':'Отключена'}</span>${me.role==='admin'?`<button class="secondary" onclick="toggleCategory('${c.id}',${!c.enabled})">${c.enabled?'Отключить':'Включить'}</button>`:''}</div>`).join('')||'<div class="card empty">Нет категорий.</div>'}</div>`)}function addCategory(){modal(`<div class="modalhead"><div><h2>Добавить категорию</h2><p class="muted">Создайте новую категорию тикетов.</p></div><button class="close" onclick="closeModal()">✕</button></div><form id="catform" class="stack"><div class="field"><label>Название</label><input name="name" maxlength="60" required></div><div class="field"><label>Описание</label><input name="description" maxlength="160"></div><button>Создать категорию</button></form>`);$('#catform').onsubmit=async e=>{e.preventDefault();try{await api('/api/admin/categories',{method:'POST',body:Object.fromEntries(new FormData(e.target))});closeModal();await loadCategories();render();toast('Категория создана')}catch(err){toast(err.message)}}}async function toggleCategory(id,enabled){try{await api('/api/admin/categories/'+id,{method:'PATCH',body:{enabled}});await loadCategories();render()}catch(e){toast(e.message)}}
+async function loadUsers(){try{adminUsers=(await api('/api/admin/users')).users}catch(e){toast(e.message)}}function userPage(){shell(`<div class="eyebrow">УПРАВЛЕНИЕ ДОСТУПОМ</div><h1 class="headline">Команда и роли</h1><p class="sub">Назначайте доступ к поддержке. Только администраторы могут менять роли.</p><div class="card" style="overflow:auto"><table class="table"><thead><tr><th>ПОЛЬЗОВАТЕЛЬ</th><th>РОЛЬ</th><th>РЕГИСТРАЦИЯ</th><th>СМЕНИТЬ РОЛЬ</th></tr></thead><tbody>${adminUsers.map(u=>`<tr><td><b>${esc(u.username)}</b><div class="small muted">${esc(u.id.slice(0,8))}…</div></td><td>${roleName(u.role)}</td><td>${date(u.createdAt)}</td><td>${me.role==='admin'?`<select onchange="setRole('${u.id}',this.value)" ${u.id===me.id?'disabled':''}><option value="user" ${u.role==='user'?'selected':''}>Пользователь</option><option value="staff" ${u.role==='staff'?'selected':''}>Персонал</option><option value="admin" ${u.role==='admin'?'selected':''}>Администратор</option></select>`:'—'}</td></tr>`).join('')}</tbody></table></div>`)}async function setRole(id,role){try{await api('/api/admin/users/'+id+'/role',{method:'PATCH',body:{role}});await loadUsers();render();toast('Роль обновлена')}catch(e){toast(e.message);await loadUsers();render()}}
+async function loadLogs(){try{logs=(await api('/api/admin/logs')).logs}catch(e){toast(e.message)}}function logPage(){shell(`<div class="eyebrow">АУДИТ И БЕЗОПАСНОСТЬ</div><h1 class="headline">Журнал аудита</h1><p class="sub">Последние события аккаунтов, тикетов и администрирования.</p><div class="card" style="overflow:auto"><table class="table"><thead><tr><th>ВРЕМЯ</th><th>АКТОР</th><th>ДЕЙСТВИЕ</th><th>ДЕТАЛИ</th></tr></thead><tbody>${logs.map(l=>`<tr><td>${date(l.at)}</td><td>${esc(l.actor)}</td><td><span class="pill">${esc(l.action)}</span></td><td>${esc(l.details)}</td></tr>`).join('')||'<tr><td colspan="4">Пока нет событий.</td></tr>'}</tbody></table></div>`)}async function logout(){try{await api('/api/logout',{method:'POST'});if(socket)socket.disconnect();me=null;renderAuth()}catch(e){toast(e.message)}}
+boot();
+</script>
+</body></html>
